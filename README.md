@@ -78,6 +78,6 @@ If this tool helped you hunt down some great leads, consider supporting its deve
 ### **Donate USDT (BEP20)**
 * **Network:** BNB Smart Chain (BEP-20)
 * **Address:** `0xDaE8289dE94f34c3586d7F00bF8a6dC905098159`
-<img width="733" height="692" alt="WhatsApp Image 2026-07-16 at 9 00 32 PM" src="https://github.com/user-attachments/assets/f6dc1c9b-cdca-42ad-ac74-42e3283796e8" />
+<img width="333" height="292" alt="WhatsApp Image 2026-07-16 at 9 00 32 PM" src="https://github.com/user-attachments/assets/f6dc1c9b-cdca-42ad-ac74-42e3283796e8" />
 
 Thank you for your support! 🚀
