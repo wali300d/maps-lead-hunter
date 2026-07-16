@@ -48,7 +48,7 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 - The script checks if a **"Website" button** exists
 - If **no website** → the business is saved as a lead
 - Results persist while the tab is open; export before closing
-
+chrome-extension, web-scraping, google-maps-scraper, lead-generation, b2b-leads, and javascript
 ---
 ## 📸 Screenshot
 
