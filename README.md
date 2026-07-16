@@ -50,8 +50,8 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 - Results persist while the tab is open; export before closing
 
 ---
-## 📸 Screenshots
-<img width="1166" height="619" alt="{E989683D-90C9-4DC6-A2D8-4FF8E86D1678}" src="https://github.com/user-attachments/assets/c7ef7c11-4dcf-43ff-a41f-619990866fdd" />
+## 📸 Screenshot
+
 
 <img width="1074" height="608" alt="{DE61787F-4B62-4054-87DC-3C92DE3D2753}" src="https://github.com/user-attachments/assets/4583b356-4d33-4668-b634-02e018f9dff9" />
 
