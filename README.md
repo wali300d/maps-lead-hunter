@@ -50,6 +50,11 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 - Results persist while the tab is open; export before closing
 
 ---
+## 📸 Screenshots
+<img width="1366" height="719" alt="{E989683D-90C9-4DC6-A2D8-4FF8E86D1678}" src="https://github.com/user-attachments/assets/c7ef7c11-4dcf-43ff-a41f-619990866fdd" />
+
+<img width="1274" height="708" alt="{DE61787F-4B62-4054-87DC-3C92DE3D2753}" src="https://github.com/user-attachments/assets/4583b356-4d33-4668-b634-02e018f9dff9" />
+
 
 ## 💡 Tips
 
@@ -65,3 +70,14 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 - For personal/research use only — respect Google's Terms of Service
 - Results are stored in memory; always export before closing the tab
 - Works best with a stable internet connection
+
+- ## ☕ Support the Project
+
+If this tool helped you hunt down some great leads, consider supporting its development! 
+
+### **Donate USDT (BEP20)**
+* **Network:** BNB Smart Chain (BEP-20)
+* **Address:** `0xDaE8289dE94f34c3586d7F00bF8a6dC905098159`
+<img width="733" height="692" alt="WhatsApp Image 2026-07-16 at 9 00 32 PM" src="https://github.com/user-attachments/assets/f6dc1c9b-cdca-42ad-ac74-42e3283796e8" />
+
+Thank you for your support! 🚀
