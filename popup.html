@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Maps Lead Hunter</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+
+:root {
+  --bg:      #0a0a0f;
+  --surface: #13131a;
+  --border:  #1e1e2e;
+  --accent:  #00ff88;
+  --blue:    #00c4ff;
+  --purple:  #a855f7;
+  --pink:    #f472b6;
+  --orange:  #fb923c;
+  --warn:    #ff4757;
+  --fb:      #1877f2;
+  --ig:      #e1306c;
+  --text:    #e8e8f0;
+  --muted:   #5a5a7a;
+  --r:       6px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 420px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── header ── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 13px 16px 11px;
+  display: flex; align-items: center; gap: 10px;
+  position: relative; overflow: hidden;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg,rgba(0,255,136,.06),transparent 60%);
+  pointer-events: none;
+}
+.logo-icon {
+  width: 30px; height: 30px; background: var(--accent);
+  border-radius: 7px; display: grid; place-items: center; flex-shrink: 0;
+}
+.logo-icon svg { color: #000; }
+.logo-name { font-size: 15px; font-weight: 800; letter-spacing: -.3px; }
+.logo-sub  { font-size: 9px; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+/* ── status bar ── */
+.status-row {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-family: 'Space Mono', monospace; font-size: 10px;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--muted); flex-shrink: 0; transition: background .3s;
+}
+.dot.on {
+  background: var(--accent);
+  box-shadow: 0 0 7px var(--accent);
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+#statusTxt { color: var(--muted); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.badge {
+  background: rgba(0,255,136,.12); border: 1px solid rgba(0,255,136,.25);
+  color: var(--accent); border-radius: 4px; padding: 1px 8px; font-size: 10px; white-space: nowrap;
+}
+
+/* ── filter row ── */
+.filter-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+}
+.filter-label { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; flex: 1; }
+.toggle-wrap  { display: flex; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+
+.tbtn {
+  padding: 6px 12px;
+  font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  cursor: pointer; border: none; background: transparent; color: var(--muted);
+  transition: background .2s, color .2s;
+  user-select: none;
+}
+.tbtn:hover { color: var(--text); }
+.tbtn.active-nw  { background: var(--accent);  color: #000; }
+.tbtn.active-all { background: var(--blue);     color: #000; }
+
+/* ── section header ── */
+.sec-label {
+  padding: 8px 16px 5px;
+  font-family: 'Space Mono', monospace; font-size: 9px;
+  color: var(--muted); letter-spacing: .08em;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── social option cards ── */
+.options-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 7px; padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.opt-card {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 9px; border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  cursor: pointer; transition: border-color .2s, background .2s;
+  user-select: none; position: relative;
+}
+.opt-card:hover { border-color: var(--muted); }
+
+.opt-card[data-opt="fb"].checked  { border-color: var(--fb); background: rgba(24,119,242,.1); }
+.opt-card[data-opt="ig"].checked  { border-color: var(--ig); background: rgba(225,48,108,.1);  }
+.opt-card[data-opt="em"].checked  { border-color: var(--orange); background: rgba(251,146,60,.1); }
+
+.opt-icon { font-size: 15px; flex-shrink: 0; }
+.opt-text { font-size: 10px; font-weight: 700; line-height: 1.2; color: var(--muted); }
+.opt-sub  { font-size: 8px; color: var(--muted); font-family: 'Space Mono', monospace; margin-top: 1px; }
+
+.opt-card[data-opt="fb"].checked .opt-text { color: var(--fb); }
+.opt-card[data-opt="ig"].checked .opt-text { color: var(--ig); }
+.opt-card[data-opt="em"].checked .opt-text { color: var(--orange); }
+
+.ck {
+  width: 13px; height: 13px; border: 1.5px solid var(--border);
+  border-radius: 3px; margin-left: auto; flex-shrink: 0;
+  display: grid; place-items: center; transition: background .2s, border-color .2s;
+  font-size: 8px; color: #fff; font-family: 'Space Mono', monospace;
+}
+.opt-card[data-opt="fb"].checked .ck { background: var(--fb);    border-color: var(--fb);    }
+.opt-card[data-opt="ig"].checked .ck { background: var(--ig);    border-color: var(--ig);    }
+.opt-card[data-opt="em"].checked .ck { background: var(--orange); border-color: var(--orange); }
+
+/* ── social note ── */
+.social-note {
+  margin: 0 16px 8px;
+  padding: 7px 10px;
+  border-radius: var(--r);
+  background: rgba(168,85,247,.07); border: 1px solid rgba(168,85,247,.2);
+  color: var(--purple); font-size: 10px; line-height: 1.5;
+  display: none;
+}
+.social-note.show { display: block; }
+
+/* ── action buttons ── */
+.btn-row, .btn-row2 { display: flex; gap: 8px; padding: 0 16px; }
+.btn-row  { padding-top: 10px; }
+.btn-row2 { padding-top: 7px; padding-bottom: 10px; }
+
+button {
+  flex: 1; border: none; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px;
+  cursor: pointer; padding: 9px; transition: all .2s;
+}
+#btnStart { background: var(--accent); color: #000; }
+#btnStart:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+#btnStart:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; transform: none; }
+
+#btnStop { background: rgba(255,71,87,.15); border: 1px solid rgba(255,71,87,.3); color: var(--warn); }
+#btnStop:hover:not(:disabled) { background: rgba(255,71,87,.25); }
+#btnStop:disabled { opacity: .35; cursor: not-allowed; }
+
+#btnCSV  { background: rgba(0,196,255,.12); border: 1px solid rgba(0,196,255,.25); color: var(--blue); }
+#btnCSV:hover  { background: rgba(0,196,255,.22); }
+#btnJSON { background: rgba(0,196,255,.06); border: 1px solid rgba(0,196,255,.15); color: var(--blue); }
+#btnJSON:hover { background: rgba(0,196,255,.14); }
+#btnClear { background: rgba(255,71,87,.08); border: 1px solid rgba(255,71,87,.18); color: var(--warn); }
+#btnClear:hover { background: rgba(255,71,87,.16); }
+
+/* ── warning ── */
+.warn-box {
+  margin: 0 16px 8px;
+  padding: 8px 11px; border-radius: var(--r);
+  background: rgba(255,200,0,.07); border: 1px solid rgba(255,200,0,.2);
+  color: #ffc800; font-size: 10px; line-height: 1.5; display: none;
+}
+.warn-box.show { display: block; }
+
+/* ── results table ── */
+.tbl-wrap {
+  max-height: 185px; overflow-y: auto;
+  padding: 0 16px 12px;
+}
+.tbl-wrap::-webkit-scrollbar { width: 3px; }
+.tbl-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.empty {
+  text-align: center; color: var(--muted);
+  font-size: 11px; padding: 22px 0;
+  font-family: 'Space Mono', monospace; line-height: 1.9;
+}
+.empty .ico { font-size: 24px; display: block; margin-bottom: 6px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 10px; }
+thead th {
+  text-align: left; color: var(--muted);
+  font-family: 'Space Mono', monospace; font-size: 8.5px;
+  padding: 3px 4px 6px; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid rgba(30,30,46,.5); }
+tbody tr:hover { background: rgba(255,255,255,.02); }
+td { padding: 6px 4px; vertical-align: top; max-width: 85px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.cn { color: var(--text); font-weight: 700; }
+.cp { color: var(--accent); font-family: 'Space Mono', monospace; }
+.cw .tag-y { color: var(--blue); font-size: 8px; }
+.cw .tag-n { color: var(--accent); font-size: 8px; }
+.csoc a { color: var(--pink); text-decoration: none; font-size: 9px; }
+.csoc a:hover { text-decoration: underline; }
+.cem { color: var(--orange); font-family: 'Space Mono', monospace; font-size: 9px; }
+.cl  a { color: var(--blue); text-decoration: none; font-family: 'Space Mono', monospace; }
+.cl  a:hover { text-decoration: underline; }
+.pending { color: var(--muted); font-size: 8px; font-family: 'Space Mono', monospace; }
+
+footer {
+  padding: 6px 16px; font-size: 9px; color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  border-top: 1px solid var(--border); text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-icon">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+  </div>
+  <div>
+    <div class="logo-name">Maps Lead Hunter</div>
+    <div class="logo-sub">GOOGLE MAPS SCRAPER v4.0 · SOCIAL + EMAIL</div>
+  </div>
+</header>
+
+<!-- Status -->
+<div class="status-row">
+  <div class="dot" id="dot"></div>
+  <span id="statusTxt">Open Google Maps and search a category</span>
+  <span class="badge" id="badge">0 leads</span>
+</div>
+
+<!-- Filter -->
+<div class="filter-row">
+  <span class="filter-label">RESULTS FILTER</span>
+  <div class="toggle-wrap">
+    <button class="tbtn active-nw" id="filterNo">No Website Only</button>
+    <button class="tbtn"           id="filterAll">All Businesses</button>
+  </div>
+</div>
+
+<!-- Extra data options -->
+<div class="sec-label">EXTRA DATA TO FETCH FROM WEBSITE (optional)</div>
+<div class="options-grid">
+
+  <div class="opt-card" data-opt="fb" id="cardFb">
+    <span class="opt-icon">🟦</span>
+    <div>
+      <div class="opt-text">Facebook</div>
+      <div class="opt-sub">Page URL</div>
+    </div>
+    <div class="ck" id="ckFb"></div>
+  </div>
+
+  <div class="opt-card" data-opt="ig" id="cardIg">
+    <span class="opt-icon">📸</span>
+    <div>
+      <div class="opt-text">Instagram</div>
+      <div class="opt-sub">Profile URL</div>
+    </div>
+    <div class="ck" id="ckIg"></div>
+  </div>
+
+  <div class="opt-card" data-opt="em" id="cardEm">
+    <span class="opt-icon">📧</span>
+    <div>
+      <div class="opt-text">Email</div>
+      <div class="opt-sub">Contact email</div>
+    </div>
+    <div class="ck" id="ckEm"></div>
+  </div>
+
+</div>
+
+<div class="social-note" id="socialNote">
+  ⚡ Social/Email data is fetched from each business's website in the background. Only available for businesses that have a website listed on Maps.
+</div>
+
+<!-- Action buttons -->
+<div class="btn-row">
+  <button id="btnStart">▶ Start Scraping</button>
+  <button id="btnStop" disabled>■ Stop</button>
+</div>
+<div class="btn-row2">
+  <button id="btnCSV">⬇ Export CSV</button>
+  <button id="btnJSON">⬇ Export JSON</button>
+  <button id="btnClear">✕ Clear</button>
+</div>
+
+<!-- Warning -->
+<div class="warn-box" id="warnBox">
+  ⚠ Open <strong>google.com/maps</strong> and search a business type first — e.g. "dentists in Karachi".
+</div>
+
+<!-- Results -->
+<div class="tbl-wrap">
+  <div class="empty" id="emptyMsg">
+    <span class="ico">🎯</span>
+    Scraped results appear here.<br>
+    <span id="emptyHint">Showing businesses <strong style="color:var(--accent)">without websites</strong>.</span>
+  </div>
+  <table id="tbl" style="display:none">
+    <thead id="thead"><tr>
+      <th>NAME</th><th>PHONE</th><th>WEBSITE?</th><th>MAPS LINK</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<footer>Maps Lead Hunter v4.0 · Social data fetched from business websites</footer>
+
+<script src="popup.js"></script>
+</body>
+</html>
