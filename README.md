@@ -1,20 +1,20 @@
-# 🎯 Maps Lead Hunter — Chrome Extension
+#  Maps Lead Hunter — Chrome Extension
 
 Scrape Google Maps for businesses **without websites** — captures Name, Phone & Maps Link.
 
 ---
 
-## 📦 Installation (Developer Mode)
+##  Installation (Developer Mode)
 
 1. Open Chrome and go to `chrome://extensions/`
 2. Enable **Developer mode** (toggle top-right)
 3. Click **"Load unpacked"**
 4. Select the `gmaps-scraper` folder
-5. The extension icon appears in your toolbar ✅
+5. The extension icon appears in your toolbar 
 
 ---
 
-## 🚀 How to Use
+##  How to Use
 
 1. Go to **[google.com/maps](https://www.google.com/maps)**
 2. Search for a business category + location — e.g.:
@@ -30,7 +30,7 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 
 ---
 
-## 📋 Output Fields
+##  Output Fields
 
 | Field | Description |
 |-------|-------------|
@@ -40,7 +40,7 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 
 ---
 
-## ⚙️ How It Works
+##  How It Works
 
 - A **content script** runs on Google Maps pages
 - When you start scraping, it watches the results panel for listing cards
@@ -50,13 +50,13 @@ Scrape Google Maps for businesses **without websites** — captures Name, Phone 
 - Results persist while the tab is open; export before closing
 chrome-extension, web-scraping, google-maps-scraper, lead-generation, b2b-leads, and javascript
 ---
-## 📸 Screenshot
+##  Screenshot
 
 
 <img width="1074" height="608" alt="{DE61787F-4B62-4054-87DC-3C92DE3D2753}" src="https://github.com/user-attachments/assets/4583b356-4d33-4668-b634-02e018f9dff9" />
 
 
-## 💡 Tips
+##  Tips
 
 - Search specific niches: `"hair salons in Islamabad"` gives cleaner results
 - Scroll the **left panel** slowly — new cards load lazily
@@ -65,13 +65,13 @@ chrome-extension, web-scraping, google-maps-scraper, lead-generation, b2b-leads,
 
 ---
 
-## ⚠️ Notes
+##  Notes
 
 - For personal/research use only — respect Google's Terms of Service
 - Results are stored in memory; always export before closing the tab
 - Works best with a stable internet connection
 
-- ## ☕ Support the Project
+- ##  Support the Project
 
 If this tool helped you hunt down some great leads, consider supporting its development! 
 
